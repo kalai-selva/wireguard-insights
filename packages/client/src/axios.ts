@@ -3,7 +3,7 @@ import router from "./router";
 
 export const instance = axios.create({
     withCredentials: true,
-    baseURL: import.meta.env.VITE_SERVER_BASE_URL || 'http://localhost:5000',
+    baseURL: import.meta.env.VITE_SERVER_BASE_URL || 'http://3.29.31.210:5000',
 })
 
 instance.interceptors.response.use((response) => response, async (error) => {

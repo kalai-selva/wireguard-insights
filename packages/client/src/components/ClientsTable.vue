@@ -48,7 +48,7 @@
         </n-modal>
         <n-card size="small" class="mb-4">
             <n-space align="center" :wrap="false" justify="space-between">
-                <n-input v-model:value="query" @input="onQueryChanged" round placeholder="Search by name or IP" />
+                <n-input :modelValue="query" @input="onQueryChanged" round placeholder="Search by name or IP" />
                 <n-button @click="isNewClientModalShown = true" tertiary round>
                     <template #icon>
                         <n-icon>
