@@ -149,6 +149,24 @@ router.get('/diagnose', async (req, res) => {
     }
 })
 
+// POST endpoint to modify AllowedIPs
+router.post('/modify-allowed-ips', async (req, res) => {
+    const { publicKey, newAllowedIPs } = req.body;
+
+    if (!publicKey || !newAllowedIPs) {
+        return res.status(400).json({ error: 'Invalid request. Please provide publicKey and newAllowedIPs.' });
+    }
+
+    const result = await wireguard.modifyAllowedIPs(publicKey, newAllowedIPs);
+
+    if (result.success) {
+        return res.json({ message: result.message });
+    } else {
+        return res.status(500).json({ error: result.message });
+    }
+});
+
+
 app.use('/api/v1/', router)
 
 app.listen(port, async () => {

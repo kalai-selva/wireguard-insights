@@ -146,4 +146,29 @@ AllowedIPs = ${allowedIps}
             unsuspendedPublicKey: pk
         };
     },
+
+    modifyAllowedIPs : async  (publicKey, newAllowedIPs) => {
+        try {
+            // Find the peer with the specified public key
+            const peerIndex = ORMInstance.selectInterface('wg0').peers.findIndex(peer => peer.publicKey === publicKey);
+    
+            if (peerIndex === -1) {
+                throw new Error('Peer not found');
+            }
+    
+            // Update the AllowedIPs field of the peer
+            ORMInstance.selectInterface('wg0').peers[peerIndex].allowedIps = newAllowedIPs;
+            ORMInstance.selectInterface('wg0').save();
+    
+            return {
+                success: true,
+                message: 'AllowedIPs updated successfully',
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: error.message,
+            };
+        }
+    }
 }
